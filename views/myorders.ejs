@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>My Orders</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: #1e293b;
+      color: white;
+    }
+
+    .logo img {
+      border-radius: 50%;
+      width: 50px;
+    }
+
+    .order-card {
+      background-color: white;
+      border: 1px solid #ddd;
+      padding: 15px;
+      margin: 10px 0;
+      border-radius: 8px;
+    }
+
+    .order-card form {
+      margin-top: 10px;
+    }
+
+    button {
+      margin-top: 10px;
+    }
+
+    select {
+      margin-top: 4px;
+      margin-bottom: 8px;
+    }
+    .navbar .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      background-color: blue;
+      color: white;
+      float: right;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .navbar .back-btn:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 20px;
+      background-color: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    footer .social-links a {
+      margin: 0 8px;
+      color: white;
+      text-decoration: none;
+    }
+
+    footer .social-links a img {
+      width: 28px;
+      border-radius: 50%;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (max-width: 1100px) {
+      .item-grid {
+        grid-template-columns: repeat(5, minmax(220px, 1fr));
+        overflow-x: auto;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <a href="/"><img src="/assets/logo.png" alt="logo"></a>
+    </div>
+      <h2>Hello <%= session.user.name %></h2>
+      <a class="back-btn" href="/dashboard">Back to Dashboard</a>
+  </header>
+  
+  <h2>Orders You Placed</h2>
+  <% if (ordersPlaced.length === 0) { %>
+    <p>You have not placed any orders yet.</p>
+  <% } else { %>
+    <% ordersPlaced.forEach(order => { %>
+      <div class="order-card">
+        <strong>Product:</strong> <%= order.productId.title %><br>
+        <strong>Seller:</strong> <%= order.sellerId.name %><br>
+        <strong>Payment Method:</strong> <%= order.paymentMethod %><br>
+        <strong>UTR ID:</strong> <%= order.utrId || 'N/A' %><br>
+        <strong>Delivery Status:</strong> <%= order.deliveryStatus %><br>
+        <strong>Approval Status:</strong> <%= order.approvedStatus %><br>
+        <strong>Payment Status:</strong> <%= order.paymentStatus %><br>
+        <strong>Ordered On:</strong> <%= new Date(order.createdAt).toLocaleString() %><br>
+
+        <% if (order.deliveryStatus !== 'Shipped' && order.deliveryStatus !== 'Delivered') { %>
+          <form method="POST" action="/cancel-order/<%= order._id %>">
+            <button type="submit">Cancel Order</button>
+          </form>
+        <% } else { %>
+          <em>Cannot cancel after shipment.</em>
+        <% } %>
+      </div>
+    <% }); %>
+  <% } %>
+
+  <h2>Orders on Your Items</h2>
+  <% if (ordersReceived.length === 0) { %>
+    <p>No one has ordered your items yet.</p>
+  <% } else { %>
+    <% ordersReceived.forEach(order => { %>
+      <div class="order-card">
+        <strong>Product:</strong> <%= order.productId.title %><br>
+        <strong>Buyer:</strong> <%= order.buyerId.name %><br>
+        <strong>Payment Method:</strong> <%= order.paymentMethod %><br>
+        <strong>UTR ID:</strong> <%= order.utrId || 'N/A' %><br>
+
+        <form method="POST" action="/orders/<%= order._id %>/update">
+          <label>Status:
+            <select name="deliveryStatus">
+              <option <%= order.deliveryStatus === 'Pending' ? 'selected' : '' %>>Pending</option>
+              <option <%= order.deliveryStatus === 'Shipped' ? 'selected' : '' %>>Shipped</option>
+              <option <%= order.deliveryStatus === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+            </select>
+          </label><br>
+
+          <label>Payment Status:
+            <select name="paymentStatus">
+              <option <%= order.paymentStatus === 'Unpaid' ? 'selected' : '' %>>Unpaid</option>
+              <option <%= order.paymentStatus === 'Paid' ? 'selected' : '' %>>Paid</option>
+            </select>
+          </label><br>
+
+          <label>Approval Status:
+            <select name="approvedStatus">
+              <option <%= order.approvedStatus === 'Waiting' ? 'selected' : '' %>>Waiting</option>
+              <option <%= order.approvedStatus === 'Approved' ? 'selected' : '' %>>Approved</option>
+              <option <%= order.approvedStatus === 'Rejected' ? 'selected' : '' %>>Rejected</option>
+            </select>
+          </label><br>
+
+          <button type="submit">Update</button>
+        </form>
+      </div>
+    <% }); %>
+  <% } %>
+  <footer>
+    <p>Contact us: support@usedgoods.com</p>
+    <div class="social-links">
+      <a href="#"><img src="/assets/facebook.jpeg" alt="Facebook" /></a>
+      <a href="#"><img src="/assets/instagram.jpg" alt="Instagram" /></a>
+      <a href="#"><img src="/assets/linkedin.jpg" alt="LinkedIn" /></a>
+    </div>
+  </footer>
+</body>
+</html>

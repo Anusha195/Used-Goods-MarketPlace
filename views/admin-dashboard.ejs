@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Dashboard</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      display: flex;
+      min-height: 100vh;
+      background-color: #f8f9fa;
+      color: #333;
+    }
+
+    .sidebar {
+      width: 250px;
+      background-color: #343a40;
+      color: white;
+      padding: 20px;
+    }
+
+    .sidebar h4 {
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+
+    .sidebar a {
+      display: block;
+      color: white;
+      padding: 10px 0;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+
+    .sidebar a:hover {
+      background-color: #495057;
+      border-radius: 5px;
+      padding-left: 10px;
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      background-color: #f8f9fa;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      font-size: 24px;
+    }
+
+    .section {
+      display: none;
+    }
+
+    .section.active {
+      display: block;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 10px;
+    }
+
+    table, th, td {
+      border: 1px solid #ccc;
+    }
+
+    th, td {
+      padding: 12px;
+      text-align: left;
+    }
+
+    th {
+      background-color: #e9ecef;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 5px 10px;
+      border: none;
+      border-radius: 4px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-right: 5px;
+      text-align: center;
+    }
+
+
+    .btn {
+      background-color: #535455;
+      color: white;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    p {
+      font-size: 16px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="sidebar">
+    <h4>Admin Panel</h4>
+    <a href="#" onclick="showSection('usersSection')">Users</a>
+    <a href="#" onclick="showSection('productsSection')">Products</a>
+    <a href="#" onclick="showSection('requestsSection')">Seller Requests</a>
+    <a href="#" onclick="showSection('statsSection')">Stats</a>
+    <a href="/">Logout</a>
+  </div>
+
+  <div class="main-content">
+    <div id="usersSection" class="section active">
+      <h2>All Users</h2>
+      <% if (users && users.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Seller</th>
+              <th>Blocked</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% users.forEach(user => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.isSeller ? "Yes" : "No" %></td>
+                <td><%= user.isBlocked ? "Yes" : "No" %></td>
+                <td>
+                  <form action="/admin/delete-user/<%= user._id %>" method="POST" style="display:inline;">
+                    <button class="btn">Delete</button>
+                  </form>
+                  <% if (!user.isBlocked) { %>
+                    <form action="/admin/block-user/<%= user._id %>" method="POST" style="display:inline;">
+                      <button class="btn">Block</button>
+                    </form>
+                  <% } else { %>
+                    <form action="/admin/unblock-user/<%= user._id %>" method="POST" style="display:inline;">
+                      <button class="btn">Unblock</button>
+                    </form>
+                  <% } %>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No users found.</p>
+      <% } %>
+    </div>
+
+    <div id="productsSection" class="section">
+      <h2>All Products</h2>
+      <% if (products && products.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Category</th>
+              <th>Price</th>
+              <th>Seller</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% products.forEach(product => { %>
+              <tr>
+                <td><%= product.title %></td>
+                <td><%= product.category %></td>
+                <td>₹<%= product.price %></td>
+                <td><%= product.sellerId?.name || 'N/A' %></td>
+                <td>
+                  <form action="/admin/delete-product/<%= product._id %>" method="POST">
+                    <button class="btn">Delete</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No products found.</p>
+      <% } %>
+    </div>
+
+    <div id="requestsSection" class="section">
+      <h2>Seller Approval Requests</h2>
+      <% if (requests && requests.length > 0) { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Email</th>
+              <th>Contact</th>
+              <th>UPI ID</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% requests.forEach(user => { %>
+              <tr>
+                <td><%= user.name %></td>
+                <td><%= user.email %></td>
+                <td><%= user.sellerDetails.contactNo %></td>
+                <td><%= user.sellerDetails.upiId %></td>
+                <td>
+                  <form action="/admin/approve-seller/<%= user._id %>" method="POST">
+                    <button class="btn btn-success btn-sm">Approve</button>
+                  </form>
+                </td>
+              </tr>
+            <% }) %>
+          </tbody>
+        </table>
+      <% } else { %>
+        <p>No pending seller requests.</p>
+      <% } %>
+    </div>
+
+    <div id="statsSection" class="section">
+      <h2>Website Stats (Coming Soon)</h2>
+      <p>Feature under development: user/product/order counts and charts.</p>
+    </div>
+  </div>
+
+  <script>
+    function showSection(sectionId) {
+      document.querySelectorAll('.section').forEach(section => {
+        section.classList.remove('active');
+      });
+      document.getElementById(sectionId).classList.add('active');
+    }
+  </script>
+</body>
+</html>

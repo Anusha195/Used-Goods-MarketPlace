@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Listings</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: #1e293b;
+      color: white;
+    }
+
+    .logo img {
+      border-radius: 50%;
+      width: 50px;
+    }
+
+    h1.center-title {
+      text-align: center;
+      margin-bottom: 30px;
+      color: #222;
+    }
+
+    .center-text {
+      text-align: center;
+      color: #888;
+      font-size: 18px;
+    }
+
+    .listings {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.08);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .card-content {
+      padding: 15px 20px;
+    }
+
+    .card h3 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .card p {
+      margin: 6px 0;
+      font-size: 14px;
+      color: #444;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      padding: 15px 20px 20px;
+    }
+
+    .edit-btn,
+    .delete-btn {
+      padding: 8px 16px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      font-weight: bold;
+      font-size: 14px;
+    }
+
+    .edit-btn {
+      background-color: #007bff;
+      color: white;
+    }
+
+    .edit-btn:hover {
+      background-color: #0056b3;
+    }
+
+    .delete-btn {
+      background-color: #dc3545;
+      color: white;
+    }
+
+    .delete-btn:hover {
+      background-color: #b92d3a;
+    }
+    footer {
+      margin-top: 20px;
+      background-color: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 10px;
+      font-size: 14px;
+    }
+
+    footer .social-links a {
+      margin: 0 8px;
+      color: white;
+      text-decoration: none;
+    }
+
+    footer .social-links a img {
+      width: 28px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+    .navbar .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      background-color: blue;
+      color: white;
+      float: right;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .navbar .back-btn:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <a href="/"><img src="/assets/logo.png" alt="logo"></a>
+    </div>
+    <a class="back-btn" href="/dashboard">Back to Dashboard</a>
+  </header>
+   <h1 class="center-title">My Listings</h1>
+  <% if (listings.length === 0) { %>
+    <p class="center-text">You haven't posted anything yet.</p>
+  <% } else { %>
+    <div class="listings">
+      <% listings.forEach(item => { %>
+        <div class="card">
+          <img src="<%= item.imageUrl %>" alt="Image of <%= item.title %>">
+          <div class="card-content">
+            <h3><%= item.title %></h3>
+            <p><strong>Price:</strong> ₹<%= item.price %></p>
+            <p><strong>Category:</strong> <%= item.category %></p>
+            <p><strong>Posted On:</strong> 
+              <%= item.postedAt ? new Date(item.postedAt).toLocaleDateString() : 'N/A' %>
+            </p>
+            <p><%= item.description %></p>
+          </div>
+          <div class="btn-group">
+            <a href="/edit/<%= item._id %>">
+              <button class="edit-btn">Edit</button>
+            </a>
+            <form action="/delete/<%= item._id %>" method="POST">
+              <button type="submit" class="delete-btn">Delete</button>
+            </form>
+          </div>
+        </div>
+      <% }) %>
+    </div>
+  <% } %>
+  <footer>
+    <p>Contact us: support@usedgoods.com</p>
+    <div class="social-links">
+      <a href="#"><img src="/assets/facebook.jpeg" alt="Facebook" /></a>
+      <a href="#"><img src="/assets/instagram.jpg" alt="Instagram" /></a>
+      <a href="#"><img src="/assets/linkedin.jpg" alt="LinkedIn" /></a>
+    </div>
+  </footer>
+</body>
+</html>

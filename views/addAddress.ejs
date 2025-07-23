@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Add Address</title>
+  <style>
+    html, body {
+      height: 100%;
+      margin: 0;
+      padding: 0;
+    }
+
+    .page-wrapper {
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    body {
+      background: #f5f7fa;
+      color: #333;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 16px 24px;
+      background-color: #1e293b;
+      color: white;
+    }
+
+    .logo img {
+      border-radius: 50%;
+      width: 50px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: #fff;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      border-radius: 8px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #333;
+    }
+
+    form {
+      display: grid;
+      gap: 15px;
+      margin-top: 20px;
+    }
+
+    input {
+      padding: 10px;
+      font-size: 16px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+
+    button {
+      background-color: #1e293b;
+      color: white;
+      padding: 12px;
+      font-size: 16px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #0f131b;;
+    }
+
+    .address-list {
+      margin-top: 30px;
+    }
+
+    .address-card {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      padding: 15px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .address-card p {
+      margin: 5px 0;
+      color: #555;
+    }
+
+    .no-address {
+      text-align: center;
+      color: #888;
+    }
+    .navbar .back-btn {
+      display: block;
+      text-align: center;
+      margin-top: 20px;
+      background-color: blue;
+      color: white;
+      float: right;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px;
+    }
+
+    .navbar .back-btn:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 20px;
+      background-color: #1e293b;
+      color: white;
+      text-align: center;
+      padding: 12px;
+      font-size: 14px;
+    }
+
+    footer .social-links a {
+      margin: 0 8px;
+      color: white;
+      text-decoration: none;
+    }
+
+    footer .social-links a img {
+      width: 28px;
+      border-radius: 50%;
+      margin: 10px;
+    }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-15px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media screen and (max-width: 1100px) {
+      .item-grid {
+        grid-template-columns: repeat(5, minmax(220px, 1fr));
+        overflow-x: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header class="navbar">
+    <div class="logo">
+      <a href="/"><img src="/assets/images/logo.png" alt="logo"></a>
+    </div>
+      <a class="back-btn" href="/dashboard">Back to Dashboard</a>
+  </header>
+  <div class="container">
+    <h2>Add New Address</h2>
+    <% if (message) { %>
+    <div style="background: #d4edda; color: #155724; padding: 10px; border: 1px solid #c3e6cb; border-radius: 4px; margin-top: 15px; text-align: center;">
+        <%= message %>
+    </div>
+    <% } %>
+
+    <form action="/add-address" method="POST">
+      <input type="text" name="addressLine" placeholder="Address Line" required />
+      <input type="text" name="city" placeholder="City" required />
+      <input type="text" name="state" placeholder="State" required />
+      <input type="text" name="zip" placeholder="ZIP Code" required />
+      <input type="text" name="country" placeholder="Country" required />
+      <button type="submit">Save Address</button>
+    </form>
+
+    <div class="address-list">
+      <h3>Previously Saved Addresses</h3>
+      <% if (addresses.length > 0) { %>
+        <% addresses.forEach((addr, i) => { %>
+          <div class="address-card">
+            <p><strong>Address <%= i + 1 %>:</strong></p>
+            <p><%= addr.addressLine %>, <%= addr.city %>, <%= addr.state %> - <%= addr.zip %>, <%= addr.country %></p>
+          </div>
+        <% }) %>
+      <% } else { %>
+        <p class="no-address">No addresses saved yet.</p>
+      <% } %>
+    </div>
+  </div>
+  <footer>
+    <p>Contact us: support@usedgoods.com</p>
+    <div class="social-links">
+      <a href="#"><img src="/assets/images/facebook.jpeg" alt="Facebook" /></a>
+      <a href="#"><img src="/assets/images/instagram.jpg" alt="Instagram" /></a>
+      <a href="#"><img src="/assets/images/linkedin.jpg" alt="LinkedIn" /></a>
+    </div>
+  </footer>
+</body>
+</html>
