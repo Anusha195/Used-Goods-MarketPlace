@@ -135,8 +135,10 @@ router.post('/cancel-order/:id', async (req, res) => {
 
     order.deliveryStatus = 'Cancelled';
     await order.save();
+    // res.redirect('/orders'); // ✅ Option 1: Proper redirect
+    // // OR
+    res.send(`<script>alert("Order cancelled successfully!"); window.location.href = "/orders";</script>`); // ✅ Option 2: Alert + redirect
 
-    res.redirect('/orders');
   } catch (err) {
     console.error("Cancel error:", err);
     res.status(500).send("Server error");

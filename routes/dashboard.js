@@ -3,7 +3,6 @@ const router = express.Router();
 const Product = require('../models/Product');
 const User = require('../models/User');
 
-// Home
 router.get('/', async (req, res) => {
   try {
     const items = await Product.find({ isSold: false }).populate('sellerId').limit(10);
@@ -14,7 +13,6 @@ router.get('/', async (req, res) => {
   }
 });
 
-// Dashboard
 router.get('/dashboard', async (req, res) => {
   if (!req.session.user) return res.redirect('/login');
   try {
@@ -48,6 +46,23 @@ router.get('/dashboard', async (req, res) => {
   } catch (err) {
     console.error("Dashboard error:", err);
     res.status(500).send("Error loading dashboard");
+  }
+});
+
+
+router.get('/load-more', async (req, res) => {
+  const skip = parseInt(req.query.skip) || 0;
+
+  try {
+    const moreItems = await Product.find({ isSold: false })
+      .populate('sellerId')
+      .skip(skip)
+      .limit(10);
+
+    res.json(moreItems);
+  } catch (err) {
+    console.error('Error loading more items:', err);
+    res.status(500).json({ error: 'Failed to load more items' });
   }
 });
 

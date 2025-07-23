@@ -23,7 +23,7 @@ router.post('/become-seller', async (req, res) => {
   };
 
   await user.save();
-  res.send('Seller application submitted! Please wait for admin approval.');
+  res.send(`<script>alert("Seller application submitted! Please wait for admin approval."); window.location.href = "/dashboard";</script>`);
 });
 
 module.exports = router;

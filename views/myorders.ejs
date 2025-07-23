@@ -59,6 +59,7 @@
       margin-top: 4px;
       margin-bottom: 8px;
     }
+
     .navbar .back-btn {
       display: block;
       text-align: center;
@@ -94,6 +95,7 @@
       width: 28px;
       border-radius: 50%;
     }
+
     @keyframes fadeIn {
       from {
         opacity: 0;
@@ -111,18 +113,17 @@
         overflow-x: auto;
       }
     }
-
   </style>
 </head>
 <body>
   <header class="navbar">
     <div class="logo">
-      <a href="/"><img src="/assets/logo.png" alt="logo"></a>
+      <a href="/"><img src="/assets/images/logo.png" alt="logo"></a>
     </div>
-      <h2>Hello <%= session.user.name %></h2>
-      <a class="back-btn" href="/dashboard">Back to Dashboard</a>
+    <h2>Hello <%= session.user.name %></h2>
+    <a class="back-btn" href="/dashboard">Back to Dashboard</a>
   </header>
-  
+
   <h2>Orders You Placed</h2>
   <% if (ordersPlaced.length === 0) { %>
     <p>You have not placed any orders yet.</p>
@@ -138,12 +139,12 @@
         <strong>Payment Status:</strong> <%= order.paymentStatus %><br>
         <strong>Ordered On:</strong> <%= new Date(order.createdAt).toLocaleString() %><br>
 
-        <% if (order.deliveryStatus !== 'Shipped' && order.deliveryStatus !== 'Delivered') { %>
+        <% if (order.deliveryStatus !== 'Cancelled' && order.deliveryStatus !== 'Shipped' && order.deliveryStatus !== 'Delivered') { %>
           <form method="POST" action="/cancel-order/<%= order._id %>">
             <button type="submit">Cancel Order</button>
           </form>
         <% } else { %>
-          <em>Cannot cancel after shipment.</em>
+          <em>Cannot cancel</em>
         <% } %>
       </div>
     <% }); %>
@@ -166,6 +167,7 @@
               <option <%= order.deliveryStatus === 'Pending' ? 'selected' : '' %>>Pending</option>
               <option <%= order.deliveryStatus === 'Shipped' ? 'selected' : '' %>>Shipped</option>
               <option <%= order.deliveryStatus === 'Delivered' ? 'selected' : '' %>>Delivered</option>
+              <option <%= order.deliveryStatus === 'Cancelled' ? 'selected' : '' %>>Cancelled</option>
             </select>
           </label><br>
 
@@ -189,12 +191,13 @@
       </div>
     <% }); %>
   <% } %>
+
   <footer>
     <p>Contact us: support@usedgoods.com</p>
     <div class="social-links">
-      <a href="#"><img src="/assets/facebook.jpeg" alt="Facebook" /></a>
-      <a href="#"><img src="/assets/instagram.jpg" alt="Instagram" /></a>
-      <a href="#"><img src="/assets/linkedin.jpg" alt="LinkedIn" /></a>
+      <a href="#"><img src="/assets/images/facebook.jpeg" alt="Facebook" /></a>
+      <a href="#"><img src="/assets/images/instagram.jpg" alt="Instagram" /></a>
+      <a href="#"><img src="/assets/images/linkedin.jpg" alt="LinkedIn" /></a>
     </div>
   </footer>
 </body>

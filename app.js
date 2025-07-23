@@ -9,7 +9,6 @@ const bodyParser = require('body-parser');
 const app = express();
 const PORT = 3000;
 
-// MongoDB connection
 mongoose.connect(process.env.MONGODB_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true
@@ -19,7 +18,6 @@ mongoose.connect(process.env.MONGODB_URI, {
   console.error("MongoDB connection error:", err);
 });
 
-// Middleware
 app.use(session({
   secret: 'yourSecretKey',
   resave: false,
@@ -33,7 +31,6 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
-// Route Imports
 const authRoutes = require('./routes/auth');
 const dashboardRoutes = require('./routes/dashboard');
 const productRoutes = require('./routes/product');
@@ -45,7 +42,6 @@ const profileRoutes = require('./routes/profile');
 
 
 
-// Route Usage
 app.use(profileRoutes);
 app.use(authRoutes);
 app.use(dashboardRoutes);
@@ -55,7 +51,7 @@ app.use(orderRoutes);
 app.use(adminRoutes);
 app.use(addressRoutes);
 
-// Server
+
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);
 });

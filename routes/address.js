@@ -16,7 +16,6 @@ router.get('/add-address', async (req, res) => {
   }
 });
 
-// POST: Save new address
 router.post('/add-address', async (req, res) => {
   try {
     if (!req.session.user) return res.redirect('/login');

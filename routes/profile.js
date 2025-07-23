@@ -22,6 +22,7 @@ router.post('/edit-profile', async (req, res) => {
   }
 
   await user.save();
+  res.send(`<script>alert("Updated successfully."); window.location.href = "/dashboard";</script>`);
   res.redirect('/dashboard');
 });
 

@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/User');
 
-// Register
 router.post('/register', async (req, res) => {
   const { name, email, password, confirmPassword } = req.body;
   if (password !== confirmPassword)
@@ -22,7 +21,6 @@ router.post('/register', async (req, res) => {
   }
 });
 
-// Login
 router.post('/login', async (req, res) => {
   const { email, password } = req.body;
   try {

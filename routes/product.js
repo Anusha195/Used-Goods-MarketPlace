@@ -69,7 +69,7 @@ router.get('/mylistings', async (req, res) => {
 router.get('/edit/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
-    if (!product) return res.status(404).send("Product not found");
+    if (!product) return res.send(`<script>alert("Product not found."); window.location.href = "/";</script>`)
     res.render('edit', { product });
   } catch (err) {
     console.error("Error loading edit page:", err);
@@ -80,16 +80,18 @@ router.get('/edit/:id', async (req, res) => {
 router.put('/edit/:id', async (req, res) => {
   const { title, price, category, description, imageUrl } = req.body;
   await Product.findByIdAndUpdate(req.params.id, { title, price, category, description, imageUrl });
+  res.send(`<script>alert("Updated successfully."); window.location.href = "/";</script>`);
   res.redirect('/mylistings');
 });
 
 router.post('/delete/:id', async (req, res) => {
   try {
     await Product.findByIdAndDelete(req.params.id);
+    res.send(`<script>alert("Deleted successfully."); window.location.href = "/";</script>`);
     res.redirect('/mylistings');
   } catch (err) {
     console.error("Delete error:", err);
-    res.status(500).send("Failed to delete product");
+    res.send("Failed to delete product");
   }
 });
 
