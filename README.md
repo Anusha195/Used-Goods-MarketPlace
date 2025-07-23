@@ -51,37 +51,37 @@ The **Used Goods Marketplace** is a web application that enables users to buy an
 ## 📸 Screenshots
 
 ### **1. Login Page**  
-![Login](assets/images/login.png)
+![Login](/assets/images/login.png)
 
 ### **2. Register Page**  
-![Login](assets/images/register.png)
+![Login](/assets/images/register.png)
 
 ### **3. Home Page with Listings**  
-![Home](assets/images/home.png)
+![Home](/assets/images/home.png)
 
 ### **4. User Dashboard**  
-![Admin Dashboard](assets/images/userdashboard.png)
+![Admin Dashboard](/assets/images/userdashboard.png)
 
 ### **5. Post new item Page**  
-![Admin Dashboard](assets/images/postitem.png)
+![Admin Dashboard](/assets/images/postitem.png)
 
 ### **6. My Listings Page**  
-![Admin Dashboard](assets/images/mylistings.png)
+![Admin Dashboard](/assets/images/mylistings.png)
 
 ### **7. Edit Profile Page**  
-![Admin Dashboard](assets/images/editprofile.png)
+![Admin Dashboard](/assets/images/editprofile.png)
 
 ### **8. Product Details Page**  
-![Product Details](assets/images/product.png)
+![Product Details](/assets/images/product.png)
 
 ### **9. Place Order Page**  
-![Order Page](assets/images/orders.png)
+![Order Page](/assets/images/orders.png)
 
 ### **10. become Seller Page**  
-![Seller Dashboard](assets/images/becomeseller.png)
+![Seller Dashboard](/assets/images/becomeseller.png)
 
 ### **11. Admin Dashboard**  
-![Admin Dashboard](assets/images/admindashboard.png)
+![Admin Dashboard](/assets/images/admindashboard.png)
 
 
 ---
