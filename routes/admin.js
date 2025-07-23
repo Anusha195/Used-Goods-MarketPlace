@@ -21,7 +21,7 @@ router.post('/admin/approve-seller/:id', async (req, res) => {
   try {
     await User.findByIdAndUpdate(req.params.id, {
       isSeller: true,
-      sellerRequest: false
+      isApprovedByAdmin: true
     });
     res.redirect('/dashboard');
   } catch (err) {
