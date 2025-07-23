@@ -81,7 +81,7 @@ The **Used Goods Marketplace** is a web application that enables users to buy an
 ![Seller Dashboard](/assets/images/becomeseller.png)
 
 ### **11. Admin Dashboard**  
-![Admin Dashboard](/assets/images/admindashboard.png)
+![Admin Dashboard](public/assets/images/admindashboard.png)
 
 
 ---
