@@ -4,40 +4,6 @@
   <meta charset="UTF-8" />
   <title>Edit Profile</title>
   <style>
-    html, body {
-      height: 100%;
-      margin: 0;
-      padding: 0;
-    }
-
-    .page-wrapper {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
-
-    .content {
-      flex: 1;
-    }
-
-    body {
-      background: #f5f7fa;
-      color: #333;
-    }
-
-    .navbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 24px;
-      background-color: #1e293b;
-      color: white;
-    }
-
-    .logo img {
-      border-radius: 50%;
-      width: 50px;
-    }
 
     .container {
       max-width: 500px;
@@ -46,7 +12,7 @@
       padding: 30px;
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 20px;
+      margin-top: 40px;
     }
 
     h2 {
@@ -88,7 +54,7 @@
     }
 
     .save-btn {
-      background-color: #007bff;
+      background-color: #bc577b;
       color: white;
     }
 
@@ -107,68 +73,12 @@
     .cancel-btn:hover {
       background-color: #444;
     }
-
-    .navbar .back-btn {
-      display: block;
-      text-align: center;
-      margin-top: 20px;
-      background-color: blue;
-      color: white;
-      float: right;
-      text-decoration: none;
-      font-size: 15px;
-      padding: 10px;
-    }
-
-    .navbar .back-btn:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 20px;
-      background-color: #1e293b;
-      color: white;
-      text-align: center;
-      padding: 12px;
-      font-size: 14px;
-    }
-
-    footer .social-links a {
-      margin: 0 8px;
-      color: white;
-      text-decoration: none;
-    }
-
-    footer .social-links a img {
-      width: 28px;
-      border-radius: 50%;
-    }
-    @keyframes fadeIn {
-      from {
-        opacity: 0;
-        transform: translateY(-15px);
-      }
-      to {
-        opacity: 1;
-        transform: translateY(0);
-      }
-    }
-
-    @media screen and (max-width: 1100px) {
-      .item-grid {
-        grid-template-columns: repeat(5, minmax(220px, 1fr));
-        overflow-x: auto;
-      }
-    }
   </style>
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo">
-      <a href="/"><img src="/assets/images/logo.png" alt="logo"></a>
-    </div>
-      <a class="back-btn" href="/dashboard">Back to Dashboard</a>
-  </header>
+  <%- include('partials/header', { username: username, title: 'Dashboard' })
+    %>
+  <main>
   <div class="container">
     <h2>Edit Profile</h2>
     <form action="/edit-profile" method="POST">
@@ -191,14 +101,8 @@
       </div>
     </form>
   </div>
-
-  <footer>
-    <p>Contact us: support@usedgoods.com</p>
-    <div class="social-links">
-      <a href="#"><img src="/assets/images/facebook.jpeg" alt="Facebook" /></a>
-      <a href="#"><img src="/assets/images/instagram.jpg" alt="Instagram" /></a>
-      <a href="#"><img src="/assets/images/linkedin.jpg" alt="LinkedIn" /></a>
-    </div>
-  </footer>
+  </main>
+  
+  <%- include('partials/footer') %>
 </body>
 </html>

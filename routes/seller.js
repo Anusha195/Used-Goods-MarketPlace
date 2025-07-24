@@ -6,9 +6,9 @@ router.get('/become-seller', async (req, res) => {
   if (!req.session.user?._id) return res.redirect('/login');
   const user = await User.findById(req.session.user._id);
   if (user.isSeller) {
-    return res.send("You're already a seller!");
+    return res.send(`<script>alert("You are already a seller."); window.location.href = "/dashboard";</script>`);
   }
-  res.render('becomeSeller');
+  res.render('becomeSeller',{username:user.name});
 });
 
 router.post('/become-seller', async (req, res) => {
@@ -17,6 +17,7 @@ router.post('/become-seller', async (req, res) => {
   if (!user) return res.redirect('/login');
 
   user.sellerDetails = {
+    username:user.name,
     contactNo,
     upiId,
     isApprovedByAdmin: false

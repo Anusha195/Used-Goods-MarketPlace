@@ -61,7 +61,7 @@
       width: 100%;
       padding: 12px;
       font-size: 16px;
-      background-color: #1e293b;
+      background-color: #7c2946;
       color: white;
       border: none;
       border-radius: 8px;
@@ -69,51 +69,65 @@
       transition: background-color 0.3s ease;
       margin-bottom: 10px;
     }
+    .back-btn {
+      text-align: center;
+      margin-top: 20px;
+      margin-left: 36%;
+      color: blue;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px;
+    }
 
-    button[type="submit"]:hover {
-      background-color: #1e293b;
+    .back-btn:hover {
+      text-decoration: underline;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Post New Item</h1>
-    <form action="/post-item" method="POST" enctype="multipart/form-data">
-      <div>
-        <label for="title">Title:</label>
-        <input type="text" id="title" name="title" required />
-      </div>
+  <%- include('partials/header', { username: username, title: 'Dashboard' })
+    %>
+  <main>
+    <div class="container">
+      <h1>Post New Item</h1>
+      <form action="/post-item" method="POST" enctype="multipart/form-data">
+        <div>
+          <label for="title">Title:</label>
+          <input type="text" id="title" name="title" required />
+        </div>
 
-      <div>
-        <label for="description">Description:</label>
-        <textarea id="description" name="description" rows="4" required></textarea>
-      </div>
+        <div>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" rows="4" required></textarea>
+        </div>
 
-      <div>
-        <label for="price">Price (in ₹):</label>
-        <input type="number" id="price" name="price" required />
-      </div>
+        <div>
+          <label for="price">Price (in ₹):</label>
+          <input type="number" id="price" name="price" required />
+        </div>
 
-      <div>
-        <label for="category">Category:</label>
-        <select name="category" id="category" required>
-          <option value="">-- Select --</option>
-          <option value="Electronics">Electronics</option>
-          <option value="Furniture">Furniture</option>
-          <option value="Books">Books</option>
-          <option value="Kitchen">Kitchen</option>
-          <option value="Fashion">Fashion</option>
-        </select>
-      </div>
+        <div>
+          <label for="category">Category:</label>
+          <select name="category" id="category" required>
+            <option value="">-- Select --</option>
+            <option value="Electronics">Electronics</option>
+            <option value="Furniture">Furniture</option>
+            <option value="Books">Books</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Fashion">Fashion</option>
+          </select>
+        </div>
 
-      <div>
-        <label for="itemImage">Upload Image:</label>
-        <input type="file" name="itemImage" id="itemImage" accept="image/*" required />
-      </div>
+        <div>
+          <label for="itemImage">Upload Image:</label>
+          <input type="file" name="itemImage" id="itemImage" accept="image/*" required />
+        </div>
 
-      <button type="submit">Post Item</button>
-      <a style="margin-left: 40%;" href="/dashboard">Back to Dashboard</a>
-    </form>
-  </div>
+        <button type="submit">Post Item</button>
+      </form>
+      <a class="back-btn" href="/dashboard"><-- Back to Dashboard</a>
+    </div>
+  </main>
+    <%- include('partials/footer') %>
 </body>
 </html>

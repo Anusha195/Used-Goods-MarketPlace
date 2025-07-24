@@ -43,6 +43,7 @@ router.get('/checkout/:productId', async (req, res) => {
     const success = req.query.success === 'true';
 
     res.render('checkout', {
+      username:user.name,
       product,
       addresses: user.addresses || [],
       success,
@@ -88,14 +89,16 @@ router.post('/place-order', async (req, res) => {
 
 router.get('/orders', async (req, res) => {
   if (!req.session.user?._id) return res.redirect('/login');
+  
 
   try {
     const userId = req.session.user._id;
-
+    const user=await User.findById(req.session.user._id);
     const ordersPlaced = await Order.find({ buyerId: userId }).populate('productId').populate('sellerId');
     const ordersReceived = await Order.find({ sellerId: userId }).populate('productId').populate('buyerId');
 
     res.render('myorders', {
+      username:user.name,
       ordersPlaced,
       ordersReceived,
       session: req.session
@@ -135,8 +138,6 @@ router.post('/cancel-order/:id', async (req, res) => {
 
     order.deliveryStatus = 'Cancelled';
     await order.save();
-    // res.redirect('/orders'); // ✅ Option 1: Proper redirect
-    // // OR
     res.send(`<script>alert("Order cancelled successfully!"); window.location.href = "/orders";</script>`); // ✅ Option 2: Alert + redirect
 
   } catch (err) {

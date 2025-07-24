@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const User = require('../models/User');
+const Order=require('../models/Order');
 
 router.get('/', async (req, res) => {
   try {
@@ -22,7 +23,11 @@ router.get('/dashboard', async (req, res) => {
       const users = await User.find();
       const products = await Product.find().populate('sellerId');
       const requests = await User.find({ isSeller: false, 'sellerDetails.isApprovedByAdmin': false });
-      return res.render('admin-dashboard', { users, products, requests });
+      const orders = await Order.find()
+      .populate('buyerId')
+      .populate('sellerId')
+      .populate('productId');
+      return res.render('admin-dashboard', { username:currentUser.name, users, products, requests, orders});
     }
 
     const { search, category, min, max } = req.query;

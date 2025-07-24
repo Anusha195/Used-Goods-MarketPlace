@@ -6,7 +6,7 @@ router.get('/edit-profile', async (req, res) => {
   if (!req.session.user) return res.redirect('/login');
 
   const user = await User.findById(req.session.user._id);
-  res.render('editprofile', { user });
+  res.render('editprofile', { username:user.name, user });
 });
 
 router.post('/edit-profile', async (req, res) => {

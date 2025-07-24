@@ -9,7 +9,7 @@ router.get('/add-address', async (req, res) => {
     const user = await User.findById(req.session.user._id);
     const addresses = user.addresses || [];
 
-    res.render('addAddress', { addresses, message: null });
+    res.render('addAddress', { username:user.name, addresses, message: null });
   } catch (err) {
     console.error("Error fetching address:", err);
     res.status(500).send("Error loading address page.");

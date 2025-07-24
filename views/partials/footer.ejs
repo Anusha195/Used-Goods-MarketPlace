@@ -1,0 +1,33 @@
+  <footer>
+    <p>Contact us: support@usedgoods.com</p>
+    <div class="social-links">
+      <a href="#"><img src="/assets/images/facebook.jpeg" alt="Facebook" /></a>
+      <a href="#"><img src="/assets/images/instagram.jpg" alt="Instagram" /></a>
+      <a href="#"><img src="/assets/images/linkedin.jpg" alt="linkedin" /></a>
+    </div>
+  </footer>
+
+  <script>
+    function toggleSidebar() {
+      const sidebar = document.getElementById("dashboardSidebar");
+      const overlay = document.getElementById("overlay");
+      if (sidebar.style.right === "0px") {
+        sidebar.style.right = "-250px";
+        overlay.style.display = "none";
+      } else {
+        sidebar.style.right = "0px";
+        overlay.style.display = "block";
+      }
+    }
+
+    document.getElementById("overlay").addEventListener("click", () => {
+      document.getElementById("dashboardSidebar").style.right = "-250px";
+      document.getElementById("overlay").style.display = "none";
+    });
+
+    function logout() {
+      window.location.href = "/";
+    }
+  </script>
+</body>
+</html>

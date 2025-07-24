@@ -46,8 +46,8 @@
     .submit-btn {
       margin-top: 20px;
       padding: 12px;
-      background-color: #1e293b;
-      color: white;
+      background-color: #f5d0c5;
+      color: black;
       font-weight: bold;
       border: none;
       border-radius: 6px;
@@ -55,14 +55,25 @@
       transition: background-color 0.3s;
       margin-bottom: 20px;
     }
-
-    .submit-btn:hover {
-      background-color: #151a23;
+    .back-btn {
+      text-align: center;
+      margin-top: 10px;
+      margin-left: 35%;
+      color: blue;
+      text-decoration: none;
+      font-size: 15px;
+      padding: 10px;
     }
 
+    .back-btn:hover {
+      text-decoration: underline;
+    }
   </style>
 </head>
 <body>
+  <%- include('partials/header', { username: username, title: 'Dashboard' })
+    %>
+  <main>
   <div class="edit-container">
     <h2 class="edit-title">Edit Product</h2>
 
@@ -83,8 +94,11 @@
       <input type="text" id="imageUrl" name="imageUrl" value="<%= product.imageUrl %>" required />
 
       <button type="submit" class="submit-btn">Update Product</button>
-      <a style="margin-left: 38%;" href="/mylistings">Back to Listings</a>
+      
     </form>
+    <a class="back-btn" href="/mylistings"><-- Back to Listings</a>
   </div>
+  </main>
+  <%- include('partials/footer') %>
 </body>
 </html>

@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Product = require('../models/Product');
 const multer = require('multer');
+const User = require('../models/User');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'public/uploads/'),
@@ -13,18 +14,20 @@ router.get('/product/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id).populate('sellerId', 'name email');
     if (!product) return res.status(404).send("Item not found");
-    res.render('item-details', { product, session: req.session, successMessage: null });
+    const user = await User.findById(req.session.user._id);
+    res.render('item-details', { username:user.name, product, session: req.session, successMessage: null });
   } catch (err) {
     console.error(err);
     res.status(500).send("Server error");
   }
 });
 
-router.get('/postnew', (req, res) => {
+router.get('/postnew', async (req, res) => {
   if (!req.session.user) {
     return res.send(`<script>alert("Please login first."); window.location.href = "/";</script>`);
   }
-  res.render('postnew');
+  const user = await User.findById(req.session.user._id);
+  res.render('postnew',{username:user.name});
 });
 
 router.post('/post-item', upload.single('itemImage'), async (req, res) => {
@@ -36,7 +39,6 @@ router.post('/post-item', upload.single('itemImage'), async (req, res) => {
     const { title, description, price, category } = req.body;
     const imagePath = '/uploads/' + req.file.filename;
     const cleanPrice = Number((price || '').replace(/[^0-9.-]+/g, ""));
-
     const newProduct = new Product({
       title,
       description,
@@ -56,10 +58,11 @@ router.post('/post-item', upload.single('itemImage'), async (req, res) => {
 
 router.get('/mylistings', async (req, res) => {
   const userId = req.session.user?._id;
+  const user = await User.findById(req.session.user._id);
   if (!userId) return res.status(401).send("Please login first to view your listings.");
   try {
     const myProducts = await Product.find({ sellerId: userId });
-    res.render("mylistings", { listings: myProducts });
+    res.render("mylistings", { username:user.name,listings: myProducts });
   } catch (err) {
     console.error("Error fetching listings:", err);
     res.status(500).send("Server error");
@@ -70,7 +73,8 @@ router.get('/edit/:id', async (req, res) => {
   try {
     const product = await Product.findById(req.params.id);
     if (!product) return res.send(`<script>alert("Product not found."); window.location.href = "/";</script>`)
-    res.render('edit', { product });
+    const user = await User.findById(req.session.user._id);
+    res.render('edit', {username:user.name, product});
   } catch (err) {
     console.error("Error loading edit page:", err);
     res.status(500).send("Server error");

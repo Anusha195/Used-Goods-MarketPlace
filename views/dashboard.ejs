@@ -7,12 +7,8 @@
   <link rel="stylesheet" href="/styles/dashboard.css" />
 </head>
 <body>
-  <header class="navbar">
-    <div class="logo"><img src="/assets/images/logo.png" alt="logo" /></div>
-    <div class="welcome-message">Welcome, <%= username || 'User' %></div>
-    <button class="dashboard-icon" onclick="toggleSidebar()">☰</button>
-  </header>
-
+  <%- include('partials/header', { username: username, title: 'Dashboard' }) %>
+  <main>
   <div class="dashboard-sidebar" id="dashboardSidebar">
     <a href="/mylistings">My Listings</a>
     <a href="/edit-profile">Edit Profile</a>
@@ -57,18 +53,12 @@
         <% }) %>
       </div>
       <div style="text-align: center; margin-top: 20px;">
-        <button style="padding: 10px; cursor: pointer; background-color: skyblue; border: 1px solid blue; color: black;" id="loadMoreBtn" onclick="loadMoreItems()">Load More</button>
+        <button style="padding: 10px; cursor: pointer; background-color: #a55873; border: 1px solid white; color: white;" id="loadMoreBtn" onclick="loadMoreItems()">Load More</button>
       </div>
     </section>
+    </main>
+    <%- include('partials/footer') %>
 
-  <footer>
-    <p>Contact us: support@usedgoods.com</p>
-    <div class="social-links">
-      <a href="#"><img src="/assets/images/facebook.jpeg" alt="Facebook" /></a>
-      <a href="#"><img src="/assets/images/instagram.jpg" alt="Instagram" /></a>
-      <a href="#"><img src="/assets/images/linkedin.jpg" alt="linkedin" /></a>
-    </div>
-  </footer>
 
   <script>
     function toggleSidebar() {
