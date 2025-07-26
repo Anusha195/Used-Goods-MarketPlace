@@ -1,140 +1,204 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Used Goods Marketplace</title>
-  <link rel="stylesheet" href="/styles/home.css" />
-</head>
-<body>
-  <div class="page-wrapper">
-    <header class="navbar">
-      <div class="logo"><img src="/assets/images/logo.png" alt="logo" /></div>
-      <section class="search-section">
-        <input type="text" id="searchInput" placeholder="Search for items..." oninput="searchItems()">
-        <button onclick="searchItems()">Search</button>
-      </section>
-      <div class="nav-buttons">
-        <button class="btn" onclick="openModal('loginModal')">Login</button>
-        <button class="btn btn-outline" onclick="openModal('registerModal')">Register</button>
-      </div>
-    </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Used Goods Marketplace</title>
+    <link rel="stylesheet" href="/styles/home.css" />
+  </head>
+  <body>
+    <div class="page-wrapper">
+      <header class="navbar">
+        <div class="logo"><img src="/assets/images/logo.png" alt="logo" /></div>
+        <section class="search-section">
+          <input
+            type="text"
+            id="searchInput"
+            placeholder="Search for items..."
+            oninput="searchItems()"
+          />
+          <button onclick="searchItems()">Search</button>
+        </section>
+        <div class="nav-buttons">
+          <button class="btn" onclick="openModal('loginModal')">Login</button>
+          <button class="btn btn-outline" onclick="openModal('registerModal')">
+            Register
+          </button>
+        </div>
+      </header>
 
-    <section class="featured-section">
-      <div class="item-grid" id="itemGrid">
-        <% items.forEach(item => { %>
-          <a href="/product/<%= item._id %>" style="text-decoration: none; color: inherit;">
+      <section class="featured-section">
+        <div class="item-grid" id="itemGrid">
+          <% items.forEach(item => { %>
+          <a
+            href="/product/<%= item._id %>"
+            style="text-decoration: none; color: inherit"
+          >
             <div class="item-card">
-              <img src="<%= item.imageUrl %>" alt="<%= item.title %>">
+              <img src="<%= item.imageUrl %>" alt="<%= item.title %>" />
               <div class="info">
                 <h4><%= item.title %></h4>
                 <p>₹<%= item.price.toLocaleString() %></p>
               </div>
             </div>
           </a>
-        <% }) %>
-      </div>
-      <div style="text-align: center; margin-top: 20px;">
-        <button style="padding: 10px; cursor: pointer; background-color: #a55873; border: 1px solid white; color: white;" id="loadMoreBtn" onclick="loadMoreItems()">Load More</button>
-      </div>
-    </section>
-    <footer>
-      <p>Contact us: support@usedgoods.com</p>
-      <div class="social-links">
-        <a href="#"><img src="/assets/images/facebook.jpeg" alt="facebook"></a>
-        <a href="#"><img src="/assets/images/instagram.jpg" alt="insta"></a>
-        <a href="#"><img src="/assets/images/linkedin.jpg" alt="linkedin"></a>
-      </div>
-    </footer>
+          <% }) %>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          <button
+            style="
+              padding: 10px;
+              cursor: pointer;
+              background-color: #a55873;
+              border: 1px solid white;
+              color: white;
+            "
+            id="loadMoreBtn"
+            onclick="loadMoreItems()"
+          >
+            Load More
+          </button>
+        </div>
+      </section>
+      <footer>
+        <p>Contact us: support@usedgoods.com</p>
+        <div class="social-links">
+          <a href="#"
+            ><img src="/assets/images/facebook.jpeg" alt="facebook"
+          /></a>
+          <a href="#"><img src="/assets/images/instagram.jpg" alt="insta" /></a>
+          <a href="#"
+            ><img src="/assets/images/linkedin.jpg" alt="linkedin"
+          /></a>
+        </div>
+      </footer>
 
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal('loginModal')">&times;</span>
-        <h2>Login</h2>
-        <form action="/login" method="POST" class="form">
-          <label for="loginEmail">Email</label>
-          <input type="email" name="email" id="loginEmail" placeholder="Enter email" required />
+      <div id="loginModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('loginModal')">&times;</span>
+          <h2>Login</h2>
+          <form action="/login" method="POST" class="form">
+            <label for="loginEmail">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="loginEmail"
+              placeholder="Enter email"
+              required
+            />
 
-          <label for="loginPassword">Password</label>
-          <input type="password" name="password" id="loginPassword" placeholder="Enter password" required />
+            <label for="loginPassword">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="loginPassword"
+              placeholder="Enter password"
+              required
+            />
 
-          <button class="btn btn-primary" type="submit">Login</button>
-        </form>
+            <button class="btn btn-primary" type="submit">Login</button>
+          </form>
+        </div>
+      </div>
+
+      <div id="registerModal" class="modal">
+        <div class="modal-content">
+          <span class="close" onclick="closeModal('registerModal')"
+            >&times;</span
+          >
+          <h2>Register</h2>
+          <form action="/register" method="POST" class="form">
+            <label for="name">Username</label>
+            <input
+              type="text"
+              name="name"
+              id="name"
+              placeholder="Enter username"
+              required
+            />
+
+            <label for="email">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="email"
+              placeholder="Enter email"
+              required
+            />
+
+            <label for="password">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Enter password"
+              required
+            />
+            <label for="confirmPassword">Confirm Password</label>
+            <input
+              type="password"
+              name="confirmPassword"
+              id="confirmPassword"
+              placeholder="Confirm password"
+              required
+            />
+            <button class="btn btn-primary" type="submit">Register</button>
+          </form>
+        </div>
       </div>
     </div>
-
-    <div id="registerModal" class="modal">
-      <div class="modal-content">
-        <span class="close" onclick="closeModal('registerModal')">&times;</span>
-        <h2>Register</h2>
-        <form action="/register" method="POST" class="form">
-          <label for="name">Username</label>
-          <input type="text" name="name" id="name" placeholder="Enter username" required />
-
-          <label for="email">Email</label>
-          <input type="email" name="email" id="email" placeholder="Enter email" required />
-
-          <label for="password">Password</label>
-          <input type="password" name="password" id="password" placeholder="Enter password" required />
-          <label for="confirmPassword">Confirm Password</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirm password" required />
-          <button class="btn btn-primary" type="submit">Register</button>
-        </form>
-      </div>
-    </div>
-  </div>
-  <script>
-    function openModal(id) {
-      document.getElementById(id).style.display = "block";
-    }
-
-    function closeModal(id) {
-      document.getElementById(id).style.display = "none";
-    }
-
-    window.onclick = function(event) {
-      const modals = document.querySelectorAll('.modal');
-      modals.forEach(modal => {
-        if (event.target === modal) {
-          modal.style.display = "none";
-        }
-      });
-    }
-
-    function applyFilters() {
-      const keyword = document.getElementById('searchInput').value;
-      const category = document.getElementById('categoryFilter').value;
-      const min = document.getElementById('minPrice').value;
-      const max = document.getElementById('maxPrice').value;
-
-      const params = new URLSearchParams();
-      if (keyword) params.append("search", keyword);
-      if (category) params.append("category", category);
-      if (min) params.append("min", min);
-      if (max) params.append("max", max);
-
-      window.location.href = `/dashboard?${params.toString()}`;
-    }
-
-    let skipCount = 10;
-
-    async function loadMoreItems() {
-      const res = await fetch(`/load-more?skip=${skipCount}`);
-      const items = await res.json();
-
-      if (items.length === 0) {
-        document.getElementById('loadMoreBtn').disabled = true;
-        document.getElementById('loadMoreBtn').innerText = "No more items";
-        return;
+    <script>
+      function openModal(id) {
+        document.getElementById(id).style.display = "block";
       }
 
-      const itemGrid = document.getElementById('itemGrid');
-      items.forEach(item => {
-        const card = document.createElement('a');
-        card.href = `/product/${item._id}`;
-        card.style.textDecoration = "none";
-        card.style.color = "inherit";
-        card.innerHTML = `
+      function closeModal(id) {
+        document.getElementById(id).style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        const modals = document.querySelectorAll(".modal");
+        modals.forEach((modal) => {
+          if (event.target === modal) {
+            modal.style.display = "none";
+          }
+        });
+      };
+
+      function applyFilters() {
+        const keyword = document.getElementById("searchInput").value;
+        const category = document.getElementById("categoryFilter").value;
+        const min = document.getElementById("minPrice").value;
+        const max = document.getElementById("maxPrice").value;
+
+        const params = new URLSearchParams();
+        if (keyword) params.append("search", keyword);
+        if (category) params.append("category", category);
+        if (min) params.append("min", min);
+        if (max) params.append("max", max);
+
+        window.location.href = `/dashboard?${params.toString()}`;
+      }
+
+      let skipCount = 10;
+
+      async function loadMoreItems() {
+        const res = await fetch(`/load-more?skip=${skipCount}`);
+        const items = await res.json();
+
+        if (items.length === 0) {
+          document.getElementById("loadMoreBtn").disabled = true;
+          document.getElementById("loadMoreBtn").innerText = "No more items";
+          return;
+        }
+
+        const itemGrid = document.getElementById("itemGrid");
+        items.forEach((item) => {
+          const card = document.createElement("a");
+          card.href = `/product/${item._id}`;
+          card.style.textDecoration = "none";
+          card.style.color = "inherit";
+          card.innerHTML = `
           <div class="item-card">
             <img src="${item.imageUrl}" alt="${item.title}">
             <div class="info">
@@ -143,24 +207,24 @@
             </div>
           </div>
         `;
-        itemGrid.appendChild(card);
-      });
+          itemGrid.appendChild(card);
+        });
 
-      skipCount += items.length;
-    }
-    
-  </script>
-  <script>
-      document.querySelector('#registerModal form').addEventListener('submit', function(e) {
-        const pw = document.getElementById('password').value;
-        const cpw = document.getElementById('confirmPassword').value;
-
-        if (pw !== cpw) {
-          alert("Passwords do not match.");
-          e.preventDefault();
-        }
-      });
+        skipCount += items.length;
+      }
     </script>
+    <script>
+      document
+        .querySelector("#registerModal form")
+        .addEventListener("submit", function (e) {
+          const pw = document.getElementById("password").value;
+          const cpw = document.getElementById("confirmPassword").value;
 
-</body>
+          if (pw !== cpw) {
+            alert("Passwords do not match.");
+            e.preventDefault();
+          }
+        });
+    </script>
+  </body>
 </html>

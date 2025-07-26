@@ -1,11 +1,11 @@
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 
 const addressSchema = new mongoose.Schema({
   addressLine: String,
   city: String,
   state: String,
   zip: String,
-  country: String
+  country: String,
 });
 
 const userSchema = new mongoose.Schema({
@@ -17,10 +17,10 @@ const userSchema = new mongoose.Schema({
   isBlocked: { type: Boolean, default: false },
   addresses: [addressSchema],
   sellerDetails: {
-    contactNo:String,
-    upiId:String,
-    isApprovedByAdmin: { type: Boolean, default: false }
-  }
+    contactNo: String,
+    upiId: String,
+    isApprovedByAdmin: { type: Boolean, default: false },
+  },
 });
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model("User", userSchema);

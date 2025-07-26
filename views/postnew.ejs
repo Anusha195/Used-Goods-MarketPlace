@@ -1,133 +1,144 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Post New Item</title>
-  <style>
-    body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #f2f2f2;
-      margin: 0;
-      padding: 0;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <title>Post New Item</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+      }
 
-    .container {
-      max-width: 600px;
-      margin: 60px auto;
-      background-color: #ffffff;
-      padding: 30px;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+      .container {
+        max-width: 600px;
+        margin: 60px auto;
+        background-color: #ffffff;
+        padding: 30px;
+        border-radius: 12px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    h1 {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #333;
-    }
+      h1 {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+      }
 
-    form div {
-      margin-bottom: 20px;
-    }
+      form div {
+        margin-bottom: 20px;
+      }
 
-    label {
-      display: block;
-      margin-bottom: 8px;
-      font-weight: bold;
-      color: #555;
-    }
+      label {
+        display: block;
+        margin-bottom: 8px;
+        font-weight: bold;
+        color: #555;
+      }
 
-    input[type="text"],
-    input[type="number"],
-    select,
-    textarea {
-      width: 100%;
-      padding: 10px 14px;
-      border: 1px solid #ccc;
-      border-radius: 8px;
-      font-size: 15px;
-      box-sizing: border-box;
-    }
+      input[type="text"],
+      input[type="number"],
+      select,
+      textarea {
+        width: 100%;
+        padding: 10px 14px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        font-size: 15px;
+        box-sizing: border-box;
+      }
 
-    textarea {
-      resize: vertical;
-    }
+      textarea {
+        resize: vertical;
+      }
 
-    input[type="file"] {
-      padding: 5px;
-    }
+      input[type="file"] {
+        padding: 5px;
+      }
 
-    button[type="submit"] {
-      width: 100%;
-      padding: 12px;
-      font-size: 16px;
-      background-color: #7c2946;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      cursor: pointer;
-      transition: background-color 0.3s ease;
-      margin-bottom: 10px;
-    }
-    .back-btn {
-      text-align: center;
-      margin-top: 20px;
-      margin-left: 36%;
-      color: blue;
-      text-decoration: none;
-      font-size: 15px;
-      padding: 10px;
-    }
+      button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #7c2946;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        margin-bottom: 10px;
+      }
+      .back-btn {
+        text-align: center;
+        margin-top: 20px;
+        margin-left: 36%;
+        color: blue;
+        text-decoration: none;
+        font-size: 15px;
+        padding: 10px;
+      }
 
-    .back-btn:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <%- include('partials/header', { username: username, title: 'Dashboard' })
+      .back-btn:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header', { username: username, title: 'Dashboard' })
     %>
-  <main>
-    <div class="container">
-      <h1>Post New Item</h1>
-      <form action="/post-item" method="POST" enctype="multipart/form-data">
-        <div>
-          <label for="title">Title:</label>
-          <input type="text" id="title" name="title" required />
-        </div>
+    <main>
+      <div class="container">
+        <h1>Post New Item</h1>
+        <form action="/post-item" method="POST" enctype="multipart/form-data">
+          <div>
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required />
+          </div>
 
-        <div>
-          <label for="description">Description:</label>
-          <textarea id="description" name="description" rows="4" required></textarea>
-        </div>
+          <div>
+            <label for="description">Description:</label>
+            <textarea
+              id="description"
+              name="description"
+              rows="4"
+              required
+            ></textarea>
+          </div>
 
-        <div>
-          <label for="price">Price (in ₹):</label>
-          <input type="number" id="price" name="price" required />
-        </div>
+          <div>
+            <label for="price">Price (in ₹):</label>
+            <input type="number" id="price" name="price" required />
+          </div>
 
-        <div>
-          <label for="category">Category:</label>
-          <select name="category" id="category" required>
-            <option value="">-- Select --</option>
-            <option value="Electronics">Electronics</option>
-            <option value="Furniture">Furniture</option>
-            <option value="Books">Books</option>
-            <option value="Kitchen">Kitchen</option>
-            <option value="Fashion">Fashion</option>
-          </select>
-        </div>
+          <div>
+            <label for="category">Category:</label>
+            <select name="category" id="category" required>
+              <option value="">-- Select --</option>
+              <option value="Electronics">Electronics</option>
+              <option value="Furniture">Furniture</option>
+              <option value="Books">Books</option>
+              <option value="Kitchen">Kitchen</option>
+              <option value="Fashion">Fashion</option>
+            </select>
+          </div>
 
-        <div>
-          <label for="itemImage">Upload Image:</label>
-          <input type="file" name="itemImage" id="itemImage" accept="image/*" required />
-        </div>
+          <div>
+            <label for="itemImage">Upload Image:</label>
+            <input
+              type="file"
+              name="itemImage"
+              id="itemImage"
+              accept="image/*"
+              required
+            />
+          </div>
 
-        <button type="submit">Post Item</button>
-      </form>
-      <a class="back-btn" href="/dashboard"><-- Back to Dashboard</a>
-    </div>
-  </main>
+          <button type="submit">Post Item</button>
+        </form>
+        <a class="back-btn" href="/dashboard"><-- Back to Dashboard</a>
+      </div>
+    </main>
     <%- include('partials/footer') %>
-</body>
+  </body>
 </html>

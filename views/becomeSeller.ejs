@@ -1,27 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Become a Seller</title>
-  <link rel="stylesheet" href="/styles/seller.css" />
-</head>
-<body>
-  <%- include('partials/header', { username: username, title: 'Dashboard' }) %>
-  <main>
-  <div class="container">
-    <h2>Become a Seller</h2>
-    <form action="/become-seller" method="POST">
-      <label for="contactNo">Contact Number</label>
-      <input type="text" name="contactNo" id="contactNo" required>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Become a Seller</title>
+    <link rel="stylesheet" href="/styles/seller.css" />
+  </head>
+  <body>
+    <%- include('partials/header', { username: username, title: 'Dashboard' })
+    %>
+    <main>
+      <div class="container">
+        <h2>Become a Seller</h2>
+        <form action="/become-seller" method="POST">
+          <label for="contactNo">Contact Number</label>
+          <input type="text" name="contactNo" id="contactNo" required />
 
-      <label for="upiId">UPI ID</label>
-      <input type="text" name="upiId" id="upiId" required>
+          <label for="upiId">UPI ID</label>
+          <input type="text" name="upiId" id="upiId" required />
 
-      <button type="submit">Apply as Seller</button>
-    </form>
-  </div>
-  </main>
+          <button type="submit">Apply as Seller</button>
+        </form>
+      </div>
+    </main>
 
-  <%- include('partials/footer') %>
-</body>
+    <%- include('partials/footer') %>
+  </body>
 </html>

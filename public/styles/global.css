@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
@@ -13,7 +13,6 @@ body {
   min-height: 100vh;
   background: #f5f7fa;
   color: #333;
-
 }
 .navbar {
   display: flex;
@@ -22,12 +21,12 @@ body {
   padding: 16px 24px;
   background-color: #7c2946;
   color: white;
-    position: relative;
+  position: relative;
   margin-top: 0;
   padding-top: 0;
 }
-main{
-  flex:1;
+main {
+  flex: 1;
 }
 .logo img {
   margin-top: 10px;
@@ -90,10 +89,9 @@ main{
   z-index: 999;
 }
 
-
 footer {
   margin-top: 20px;
-  background-color:#7c2946;
+  background-color: #7c2946;
   color: white;
   text-align: center;
   padding: 20px;

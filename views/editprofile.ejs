@@ -1,108 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <title>Edit Profile</title>
-  <style>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Edit Profile</title>
+    <style>
+      .container {
+        max-width: 500px;
+        margin: auto;
+        background: white;
+        padding: 30px;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        margin-top: 40px;
+      }
 
-    .container {
-      max-width: 500px;
-      margin: auto;
-      background: white;
-      padding: 30px;
-      border-radius: 10px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-      margin-top: 40px;
-    }
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+      }
 
-    h2 {
-      text-align: center;
-      margin-bottom: 25px;
-    }
+      .form-group {
+        margin-bottom: 20px;
+      }
 
-    .form-group {
-      margin-bottom: 20px;
-    }
+      label {
+        display: block;
+        margin-bottom: 6px;
+        font-weight: 600;
+      }
 
-    label {
-      display: block;
-      margin-bottom: 6px;
-      font-weight: 600;
-    }
+      input {
+        width: 100%;
+        padding: 10px;
+        border-radius: 6px;
+        border: 1px solid #ccc;
+      }
 
-    input {
-      width: 100%;
-      padding: 10px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
-    }
+      .btn-group {
+        display: flex;
+        justify-content: space-between;
+        margin-top: 25px;
+        padding: 0;
+      }
 
-    .btn-group {
-      display: flex;
-      justify-content: space-between;
-      margin-top: 25px;
-      padding: 0;
-    }
+      button {
+        padding: 15px 20px;
+        font-size: 15px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background 0.3s;
+      }
 
-    button {
-      padding: 15px 20px;
-      font-size: 15px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
+      .save-btn {
+        background-color: #bc577b;
+        color: white;
+      }
 
-    .save-btn {
-      background-color: #bc577b;
-      color: white;
-    }
+      .save-btn:hover {
+        background-color: #0056b3;
+      }
 
-    .save-btn:hover {
-      background-color: #0056b3;
-    }
+      .cancel-btn {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px;
+        text-decoration: none;
+        border-radius: 20%;
+      }
 
-    .cancel-btn {
-      background-color: #6c757d;
-      color: white;
-      padding: 10px;
-      text-decoration: none;
-      border-radius: 20%;
-    }
-
-    .cancel-btn:hover {
-      background-color: #444;
-    }
-  </style>
-</head>
-<body>
-  <%- include('partials/header', { username: username, title: 'Dashboard' })
+      .cancel-btn:hover {
+        background-color: #444;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header', { username: username, title: 'Dashboard' })
     %>
-  <main>
-  <div class="container">
-    <h2>Edit Profile</h2>
-    <form action="/edit-profile" method="POST">
-      <div class="form-group">
-        <label for="editUsername">Username</label>
-        <input type="text" name="name" id="editUsername" value="<%= user.name || '' %>" required />
-      </div>
-      <div class="form-group">
-        <label for="editEmail">Email</label>
-        <input type="email" name="email" id="editEmail" value="<%= user.email %>" required />
-      </div>
-      <div class="form-group">
-        <label for="editPassword">Password</label>
-        <input type="password" name="password" id="editPassword" value="<%= user.password %>" required />
-      </div>
+    <main>
+      <div class="container">
+        <h2>Edit Profile</h2>
+        <form action="/edit-profile" method="POST">
+          <div class="form-group">
+            <label for="editUsername">Username</label>
+            <input
+              type="text"
+              name="name"
+              id="editUsername"
+              value="<%= user.name || '' %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editEmail">Email</label>
+            <input
+              type="email"
+              name="email"
+              id="editEmail"
+              value="<%= user.email %>"
+              required
+            />
+          </div>
+          <div class="form-group">
+            <label for="editPassword">Password</label>
+            <input
+              type="password"
+              name="password"
+              id="editPassword"
+              value="<%= user.password %>"
+              required
+            />
+          </div>
 
-      <div class="btn-group">
-        <button type="submit" class="save-btn">Save Changes</button>
-        <a href="/dashboard" class="cancel-btn">Cancel</a>
+          <div class="btn-group">
+            <button type="submit" class="save-btn">Save Changes</button>
+            <a href="/dashboard" class="cancel-btn">Cancel</a>
+          </div>
+        </form>
       </div>
-    </form>
-  </div>
-  </main>
-  
-  <%- include('partials/footer') %>
-</body>
+    </main>
+
+    <%- include('partials/footer') %>
+  </body>
 </html>

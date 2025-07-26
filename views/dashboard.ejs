@@ -1,127 +1,169 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Dashboard</title>
-  <link rel="stylesheet" href="/styles/dashboard.css" />
-</head>
-<body>
-  <%- include('partials/header', { username: username, title: 'Dashboard' }) %>
-  <main>
-  <div class="dashboard-sidebar" id="dashboardSidebar">
-    <a href="/mylistings">My Listings</a>
-    <a href="/edit-profile">Edit Profile</a>
-    <a href="/add-address">Add Address</a>
-    <a href="/become-seller">Become a Seller</a>
-    <a href="/orders">My Orders</a>
-    <a href="/" onclick="logout()">Logout</a>
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard</title>
+    <link rel="stylesheet" href="/styles/dashboard.css" />
+  </head>
+  <body>
+    <%- include('partials/header', { username: username, title: 'Dashboard' })
+    %>
+    <main>
+      <div class="dashboard-sidebar" id="dashboardSidebar">
+        <a href="/mylistings">My Listings</a>
+        <a href="/edit-profile">Edit Profile</a>
+        <a href="/add-address">Add Address</a>
+        <a href="/become-seller">Become a Seller</a>
+        <a href="/orders">My Orders</a>
+        <a href="/" onclick="logout()">Logout</a>
+      </div>
 
-  <div id="overlay"></div>
+      <div id="overlay"></div>
 
-  <section class="search-section">
-    <input type="text" id="searchInput" placeholder="Search items..." />
-    <select id="categoryFilter">
-      <option value="">All Categories</option>
-      <option value="Electronics">Electronics</option>
-      <option value="Vehicles">Vehicles</option>
-      <option value="Furniture">Furniture</option>
-      <option value="Appliances">Appliances</option>
-      <option value="Home decor">Home Decor</option>
-      <option value="Books">Books</option>
-    </select>
-    <input type="number" id="minPrice" placeholder="Min Price" style="width: 100px;" />
-    <input type="number" id="maxPrice" placeholder="Max Price" style="width: 100px;" />
-    <button onclick="applyFilters()">Apply Filters</button>
-    <a href="/postnew"><button class="btn">Post New Item</button></a>
-  </section>
+      <section class="search-section">
+        <input type="text" id="searchInput" placeholder="Search items..." />
+        <select id="categoryFilter">
+          <option value="">All Categories</option>
+          <option value="Electronics">Electronics</option>
+          <option value="Vehicles">Vehicles</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Appliances">Appliances</option>
+          <option value="Home decor">Home Decor</option>
+          <option value="Books">Books</option>
+        </select>
+        <input
+          type="number"
+          id="minPrice"
+          placeholder="Min Price"
+          style="width: 100px"
+        />
+        <input
+          type="number"
+          id="maxPrice"
+          placeholder="Max Price"
+          style="width: 100px"
+        />
+        <button onclick="applyFilters()">Apply Filters</button>
+        <a href="/postnew"><button class="btn">Post New Item</button></a>
+      </section>
 
-  <!-- Product Items -->
-  <section class="featured-section">
-      <div class="item-grid" id="itemGrid">
-        <% products.forEach(product => { %>
-          <a href="/product/<%= product._id %>" style="text-decoration: none; color: inherit;">
+      <!-- Product Items -->
+      <section class="featured-section">
+        <div class="item-grid" id="itemGrid">
+          <% products.forEach(product => { %>
+          <a
+            href="/product/<%= product._id %>"
+            style="text-decoration: none; color: inherit"
+          >
             <div class="item-card">
-              <img src="<%= product.imageUrl %>" alt="<%= product.category %>">
+              <img
+                src="<%= product.imageUrl %>"
+                alt="<%= product.category %>"
+              />
               <div class="info">
                 <h4><%= product.title %></h4>
                 <p>₹<%= product.price.toLocaleString() %></p>
               </div>
             </div>
           </a>
-        <% }) %>
-      </div>
-      <div style="text-align: center; margin-top: 20px;">
-        <button style="padding: 10px; cursor: pointer; background-color: #a55873; border: 1px solid white; color: white;" id="loadMoreBtn" onclick="loadMoreItems()">Load More</button>
-      </div>
-    </section>
+          <% }) %>
+        </div>
+        <div style="text-align: center; margin-top: 20px">
+          <button
+            style="
+              padding: 10px;
+              cursor: pointer;
+              background-color: #a55873;
+              border: 1px solid white;
+              color: white;
+            "
+            id="loadMoreBtn"
+            onclick="loadMoreItems()"
+          >
+            Load More
+          </button>
+        </div>
+      </section>
     </main>
     <%- include('partials/footer') %>
 
-
-  <script>
-    function toggleSidebar() {
-      const sidebar = document.getElementById("dashboardSidebar");
-      const overlay = document.getElementById("overlay");
-      if (sidebar.style.right === "0px") {
-        sidebar.style.right = "-250px";
-        overlay.style.display = "none";
-      } else {
-        sidebar.style.right = "0px";
-        overlay.style.display = "block";
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("dashboardSidebar");
+        const overlay = document.getElementById("overlay");
+        if (sidebar.style.right === "0px") {
+          sidebar.style.right = "-250px";
+          overlay.style.display = "none";
+        } else {
+          sidebar.style.right = "0px";
+          overlay.style.display = "block";
+        }
       }
-    }
 
-    document.getElementById("overlay").addEventListener("click", () => {
-      document.getElementById("dashboardSidebar").style.right = "-250px";
-      document.getElementById("overlay").style.display = "none";
-    });
-
-    function logout() {
-      window.location.href = "/";
-    }
-
-    function applyFilters() {
-      const keyword = document.getElementById('searchInput').value.toLowerCase();
-      const category = document.getElementById('categoryFilter').value.toLowerCase();
-      const min = parseInt(document.getElementById('minPrice').value) || 0;
-      const max = parseInt(document.getElementById('maxPrice').value) || Infinity;
-
-      const cards = document.querySelectorAll('.item-card');
-
-      cards.forEach(card => {
-        const title = card.querySelector('h4').textContent.toLowerCase();
-        const price = parseInt(card.querySelector('p').textContent.replace(/[₹,]/g, '')) || 0;
-        const categoryMatch = card.querySelector('img').getAttribute('alt').toLowerCase();
-
-        const matchesKeyword = title.includes(keyword);
-        const matchesCategory = !category || categoryMatch.includes(category);
-        const matchesPrice = price >= min && price <= max;
-
-        card.style.display = (matchesKeyword && matchesCategory && matchesPrice) ? 'block' : 'none';
+      document.getElementById("overlay").addEventListener("click", () => {
+        document.getElementById("dashboardSidebar").style.right = "-250px";
+        document.getElementById("overlay").style.display = "none";
       });
-    }
 
-    let skipCount = 10;
-
-    async function loadMoreItems() {
-      const res = await fetch(`/load-more?skip=${skipCount}`);
-      const items = await res.json();
-
-      if (items.length === 0) {
-        document.getElementById('loadMoreBtn').disabled = true;
-        document.getElementById('loadMoreBtn').innerText = "No more items";
-        return;
+      function logout() {
+        window.location.href = "/";
       }
 
-      const itemGrid = document.getElementById('itemGrid');
-      items.forEach(item => {
-        const card = document.createElement('a');
-        card.href = `/product/${item._id}`;
-        card.style.textDecoration = "none";
-        card.style.color = "inherit";
-        card.innerHTML = `
+      function applyFilters() {
+        const keyword = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const category = document
+          .getElementById("categoryFilter")
+          .value.toLowerCase();
+        const min = parseInt(document.getElementById("minPrice").value) || 0;
+        const max =
+          parseInt(document.getElementById("maxPrice").value) || Infinity;
+
+        const cards = document.querySelectorAll(".item-card");
+
+        cards.forEach((card) => {
+          const title = card.querySelector("h4").textContent.toLowerCase();
+          const price =
+            parseInt(
+              card.querySelector("p").textContent.replace(/[₹,]/g, "")
+            ) || 0;
+          const categoryMatch = card
+            .querySelector("img")
+            .getAttribute("alt")
+            .toLowerCase();
+
+          const matchesKeyword = title.includes(keyword);
+          const matchesCategory = !category || categoryMatch.includes(category);
+          const matchesPrice = price >= min && price <= max;
+
+          card.style.display =
+            matchesKeyword && matchesCategory && matchesPrice
+              ? "block"
+              : "none";
+        });
+      }
+
+      let skipCount = 10;
+
+      async function loadMoreItems() {
+        const res = await fetch(`/load-more?skip=${skipCount}`);
+        const items = await res.json();
+
+        if (items.length === 0) {
+          document.getElementById("loadMoreBtn").disabled = true;
+          document.getElementById("loadMoreBtn").innerText = "No more items";
+          return;
+        }
+
+        const itemGrid = document.getElementById("itemGrid");
+        items.forEach((item) => {
+          const card = document.createElement("a");
+          card.href = `/product/${item._id}`;
+          card.style.textDecoration = "none";
+          card.style.color = "inherit";
+          card.innerHTML = `
           <div class="item-card">
             <img src="${item.imageUrl}" alt="${item.title}">
             <div class="info">
@@ -130,11 +172,11 @@
             </div>
           </div>
         `;
-        itemGrid.appendChild(card);
-      });
+          itemGrid.appendChild(card);
+        });
 
-      skipCount += items.length;
-    }
-  </script>
-</body>
+        skipCount += items.length;
+      }
+    </script>
+  </body>
 </html>

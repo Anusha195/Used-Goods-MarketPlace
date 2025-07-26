@@ -1,25 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title><%= title || 'Used Goods' %></title>
-  <link rel="stylesheet" href="/styles/global.css" />
-</head>
-<body>
-  <header class="navbar">
-    <div class="logo"><img src="/assets/images/logo.png" alt="logo" /></div>
-    <div class="welcome-message">Welcome, <%= username || 'User' %></div>
-    <button class="dashboard-icon" onclick="toggleSidebar()">☰</button>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title><%= title || 'Used Goods' %></title>
+    <link rel="stylesheet" href="/styles/global.css" />
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo"><img src="/assets/images/logo.png" alt="logo" /></div>
+      <div class="welcome-message">Welcome, <%= username || 'User' %></div>
+      <button class="dashboard-icon" onclick="toggleSidebar()">☰</button>
+    </header>
 
-  <div class="dashboard-sidebar" id="dashboardSidebar">
-    <a href="/mylistings">My Listings</a>
-    <a href="/edit-profile">Edit Profile</a>
-    <a href="/add-address">Add Address</a>
-    <a href="/become-seller">Become a Seller</a>
-    <a href="/orders">My Orders</a>
-    <a href="/" onclick="logout()">Logout</a>
-  </div>
+    <div class="dashboard-sidebar" id="dashboardSidebar">
+      <a href="/mylistings">My Listings</a>
+      <a href="/edit-profile">Edit Profile</a>
+      <a href="/add-address">Add Address</a>
+      <a href="/become-seller">Become a Seller</a>
+      <a href="/orders">My Orders</a>
+      <a href="/" onclick="logout()">Logout</a>
+    </div>
 
-  <div id="overlay"></div>
+    <div id="overlay"></div>
+  </body>
+</html>

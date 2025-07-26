@@ -1,104 +1,133 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Edit Product</title>
-  <style>
-    .edit-container {
-      max-width: 500px;
-      margin: 50px auto;
-      padding: 30px;
-      background-color: #ffffff;
-      border-radius: 10px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    }
+  <head>
+    <title>Edit Product</title>
+    <style>
+      .edit-container {
+        max-width: 500px;
+        margin: 50px auto;
+        padding: 30px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      }
 
-    .edit-title {
-      text-align: center;
-      margin-bottom: 25px;
-      color: #333;
-      font-size: 24px;
-    }
+      .edit-title {
+        text-align: center;
+        margin-bottom: 25px;
+        color: #333;
+        font-size: 24px;
+      }
 
-    .edit-form {
-      display: flex;
-      flex-direction: column;
-    }
+      .edit-form {
+        display: flex;
+        flex-direction: column;
+      }
 
-    .edit-form label {
-      font-weight: bold;
-      margin: 10px 0 5px;
-      color: #444;
-    }
+      .edit-form label {
+        font-weight: bold;
+        margin: 10px 0 5px;
+        color: #444;
+      }
 
-    .edit-form input,
-    .edit-form textarea {
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      font-size: 14px;
-      resize: vertical;
-    }
+      .edit-form input,
+      .edit-form textarea {
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        font-size: 14px;
+        resize: vertical;
+      }
 
-    .edit-form textarea {
-      min-height: 80px;
-    }
+      .edit-form textarea {
+        min-height: 80px;
+      }
 
-    .submit-btn {
-      margin-top: 20px;
-      padding: 12px;
-      background-color: #f5d0c5;
-      color: black;
-      font-weight: bold;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin-bottom: 20px;
-    }
-    .back-btn {
-      text-align: center;
-      margin-top: 10px;
-      margin-left: 35%;
-      color: blue;
-      text-decoration: none;
-      font-size: 15px;
-      padding: 10px;
-    }
+      .submit-btn {
+        margin-top: 20px;
+        padding: 12px;
+        background-color: #f5d0c5;
+        color: black;
+        font-weight: bold;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        margin-bottom: 20px;
+      }
+      .back-btn {
+        text-align: center;
+        margin-top: 10px;
+        margin-left: 35%;
+        color: blue;
+        text-decoration: none;
+        font-size: 15px;
+        padding: 10px;
+      }
 
-    .back-btn:hover {
-      text-decoration: underline;
-    }
-  </style>
-</head>
-<body>
-  <%- include('partials/header', { username: username, title: 'Dashboard' })
+      .back-btn:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <%- include('partials/header', { username: username, title: 'Dashboard' })
     %>
-  <main>
-  <div class="edit-container">
-    <h2 class="edit-title">Edit Product</h2>
+    <main>
+      <div class="edit-container">
+        <h2 class="edit-title">Edit Product</h2>
 
-    <form action="/edit/<%= product._id %>?_method=PUT" method="POST" class="edit-form">
-      <label for="title">Title:</label>
-      <input type="text" id="title" name="title" value="<%= product.title %>" required />
+        <form
+          action="/edit/<%= product._id %>?_method=PUT"
+          method="POST"
+          class="edit-form"
+        >
+          <label for="title">Title:</label>
+          <input
+            type="text"
+            id="title"
+            name="title"
+            value="<%= product.title %>"
+            required
+          />
 
-      <label for="description">Description:</label>
-      <textarea id="description" name="description" required><%= product.description %></textarea>
+          <label for="description">Description:</label>
+          <textarea id="description" name="description" required>
+<%= product.description %></textarea
+          >
 
-      <label for="price">Price:</label>
-      <input type="number" id="price" name="price" value="<%= product.price %>" required />
+          <label for="price">Price:</label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            value="<%= product.price %>"
+            required
+          />
 
-      <label for="category">Category:</label>
-      <input type="text" id="category" name="category" value="<%= product.category %>" required />
+          <label for="category">Category:</label>
+          <input
+            type="text"
+            id="category"
+            name="category"
+            value="<%= product.category %>"
+            required
+          />
 
-      <label for="imageUrl">Image URL:</label>
-      <input type="text" id="imageUrl" name="imageUrl" value="<%= product.imageUrl %>" required />
+          <label for="imageUrl">Image URL:</label>
+          <input
+            type="text"
+            id="imageUrl"
+            name="imageUrl"
+            value="<%= product.imageUrl %>"
+            required
+          />
 
-      <button type="submit" class="submit-btn">Update Product</button>
-      
-    </form>
-    <a class="back-btn" href="/mylistings"><-- Back to Listings</a>
-  </div>
-  </main>
-  <%- include('partials/footer') %>
-</body>
+          <button type="submit" class="submit-btn">Update Product</button>
+        </form>
+        <a class="back-btn" href="/mylistings"><-- Back to Listings</a>
+      </div>
+    </main>
+    <%- include('partials/footer') %>
+  </body>
 </html>

@@ -1,46 +1,49 @@
-const express = require('express');
-require('dotenv').config();
-const session = require('express-session');
-const mongoose = require('mongoose');
-const methodOverride = require('method-override');
-const path = require('path');
-const bodyParser = require('body-parser');
+const express = require("express");
+require("dotenv").config();
+const session = require("express-session");
+const mongoose = require("mongoose");
+const methodOverride = require("method-override");
+const path = require("path");
+const bodyParser = require("body-parser");
 
 const app = express();
 const PORT = 3000;
 
-mongoose.connect(process.env.MONGODB_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true
-}).then(() => {
-  console.log("Connected to MongoDB");
-}).catch(err => {
-  console.error("MongoDB connection error:", err);
-});
+mongoose
+  .connect(process.env.MONGODB_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+  })
+  .then(() => {
+    console.log("Connected to MongoDB");
+  })
+  .catch((err) => {
+    console.error("MongoDB connection error:", err);
+  });
 
-app.use(session({
-  secret: 'yourSecretKey',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: false }
-}));
-app.use(methodOverride('_method'));
-app.use(express.static(path.join(__dirname, 'public')));
-app.set('view engine', 'ejs');
-app.set('views', path.join(__dirname, 'views'));
+app.use(
+  session({
+    secret: "yourSecretKey",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
+app.use(methodOverride("_method"));
+app.use(express.static(path.join(__dirname, "public")));
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "views"));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.urlencoded({ extended: true }));
 
-const authRoutes = require('./routes/auth');
-const dashboardRoutes = require('./routes/dashboard');
-const productRoutes = require('./routes/product');
-const sellerRoutes = require('./routes/seller');
-const orderRoutes = require('./routes/order');
-const adminRoutes = require('./routes/admin');
-const addressRoutes = require('./routes/address');
-const profileRoutes = require('./routes/profile');
-
-
+const authRoutes = require("./routes/auth");
+const dashboardRoutes = require("./routes/dashboard");
+const productRoutes = require("./routes/product");
+const sellerRoutes = require("./routes/seller");
+const orderRoutes = require("./routes/order");
+const adminRoutes = require("./routes/admin");
+const addressRoutes = require("./routes/address");
+const profileRoutes = require("./routes/profile");
 
 app.use(profileRoutes);
 app.use(authRoutes);
@@ -50,7 +53,6 @@ app.use(sellerRoutes);
 app.use(orderRoutes);
 app.use(adminRoutes);
 app.use(addressRoutes);
-
 
 app.listen(PORT, () => {
   console.log(`Server running at http://localhost:${PORT}`);

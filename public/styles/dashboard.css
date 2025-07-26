@@ -4,7 +4,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Segoe UI', sans-serif;
+  font-family: "Segoe UI", sans-serif;
 }
 
 body {
@@ -14,7 +14,6 @@ body {
   background: #f5f7fa;
   color: #333;
 }
-
 
 .search-section {
   display: flex;
@@ -64,8 +63,6 @@ body {
   text-decoration: none;
 }
 
-
-
 .featured-section {
   padding: 30px;
   text-align: center;
@@ -74,7 +71,7 @@ body {
 
 .item-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr); 
+  grid-template-columns: repeat(5, 1fr);
   justify-content: space-around;
   gap: 20px;
   justify-items: center;
@@ -89,7 +86,7 @@ body {
   width: 250px;
   border-radius: 12px;
   overflow: hidden;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
   transition: transform 0.2s ease;
 }
 
