@@ -19,7 +19,7 @@ router.get("/add-address", async (req, res) => {
 router.post("/add-address", async (req, res) => {
   try {
     if (!req.session.user) return res.redirect("/login");
-
+    const user = await User.findById(req.session.user._id);
     const { addressLine, city, state, zip, country } = req.body;
     const newAddress = { addressLine, city, state, zip, country };
 
@@ -29,6 +29,7 @@ router.post("/add-address", async (req, res) => {
 
     const updatedUser = await User.findById(req.session.user._id);
     res.render("addAddress", {
+      username:user.name,
       addresses: updatedUser.addresses,
       message: "Address saved successfully!",
     });
